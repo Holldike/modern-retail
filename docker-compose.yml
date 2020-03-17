@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  web:
+    image: nginx:1.17.8-alpine
+    volumes:
+     - ${CONFIG_DIR}modern_retail.conf:/etc/nginx/conf.d/modern_retail.conf
+     - ./:${SOURCE_DIR}
+    ports:
+     - "8080:80"
+    links:
+     - php
+  php:
+    build: .
+    volumes:
+     - ./:${SOURCE_DIR}
+     - .${CONFIG_DIR}php.ini://usr/local/etc/php.ini
+    environment:
+      XDEBUG_CONFIG: remote_host=172.17.0.1
+      PHP_IDE_CONFIG: serverName=docker-server
+    links:
+      - db
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: modern_retail
+    volumes:
+     - ./sql:/docker-entrypoint-initdb.d
+
