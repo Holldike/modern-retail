@@ -3,17 +3,16 @@ services:
   web:
     image: nginx:1.17.8-alpine
     volumes:
-     - ${CONFIG_DIR}modern_retail.conf:/etc/nginx/conf.d/modern_retail.conf
-     - ./:${SOURCE_DIR}
+     - ./config/modern_retail.conf:/etc/nginx/conf.d/modern_retail.conf
+     - ./:/modern_retail
     ports:
-     - "8080:80"
+     - "8000:80"
     links:
      - php
   php:
     build: .
     volumes:
-     - ./:${SOURCE_DIR}
-     - .${CONFIG_DIR}php.ini://usr/local/etc/php.ini
+     - ./:/modern_retail
     environment:
       XDEBUG_CONFIG: remote_host=172.17.0.1
       PHP_IDE_CONFIG: serverName=docker-server
