@@ -1,0 +1,9 @@
+CREATE TABLE user (
+    id INT(11) PRIMARY KEY AUTO_INCREMENT,
+    firstname VARCHAR(255) NOT NULL,
+    lastname VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    user_type VARCHAR(255) NOT NULL,
+    created_at DATETIME NOT NULL
+)
