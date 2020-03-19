@@ -3,8 +3,11 @@
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
+use Phalcon\Forms\Element\Password;
 use Phalcon\Validation\Validator\Email;
+use Phalcon\Validation\Validator\InclusionIn;
 use Phalcon\Validation\Validator\PresenceOf;
+use Phalcon\Validation\Validator\Uniqueness;
 use Phalcon\Validation\Validator\StringLength;
 
 class InsertUserForm extends Form
@@ -13,7 +16,7 @@ class InsertUserForm extends Form
     {
         //Name
         $firstName = new Text(
-            'firstName',
+            'firstname',
             [
                 'maxlength' => 20,
                 'placeholder' => 'First Name',
@@ -21,7 +24,7 @@ class InsertUserForm extends Form
         );
 
         $lastName = new Text(
-            'lastName',
+            'lastname',
             [
                 'maxlength' => 20,
                 'placeholder' => 'Last Name',
@@ -56,10 +59,14 @@ class InsertUserForm extends Form
             new Email([
                 'message' => 'The e-mail is not valid',
             ]),
+            new Uniqueness([
+                'message' => 'The e-mail is already exists',
+                'model' => new User()
+            ])
         ]);
 
         //Password
-        $password = new Text(
+        $password = new Password(
             'password',
             [
                 'placeholder' => 'Password',
@@ -75,7 +82,7 @@ class InsertUserForm extends Form
 
         //User type
         $userType = new Select(
-            'userType',
+            'user_type',
             [
                 1 => 'Client',
                 2 => 'Admin',
@@ -85,6 +92,10 @@ class InsertUserForm extends Form
         $userType->addValidators([
             new PresenceOf([
                 'message' => 'The type of user is required',
+            ]),
+            new InclusionIn([
+                'domain' => ['1', '2'],
+                'message' => 'Sorry, but something went wrong, please repeat',
             ])
         ]);
 

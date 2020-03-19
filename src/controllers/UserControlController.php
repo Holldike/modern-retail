@@ -9,17 +9,14 @@ class UserControlController extends Controller
         $form = new InsertUserForm();
 
         if ($this->request->isPost()) {
-            if (!$form->isValid($this->request->getPost())) {
+            $user = new User(['created_at' => date("Y-m-d H:i:s")]);
+            $form->bind($this->request->getPost(), $user);
+
+            if (!$form->isValid()) {
                 foreach ($form->getMessages() as $message) {
-                    $this->flash->error('This is an error');
+                    $this->flash->error((string)$message);
                 }
             } else {
-                $user = new Users([
-                    'name' => $this->request->getPost('name', 'striptags'),
-                    'profilesId' => $this->request->getPost('profilesId', 'int'),
-                    'email' => $this->request->getPost('email', 'email'),
-                ]);
-
                 if (!$user->save()) {
                     foreach ($user->getMessages() as $message) {
                         $this->flash->error((string)$message);

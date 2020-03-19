@@ -6,12 +6,12 @@ use Phalcon\Mvc\View;
 use Phalcon\Mvc\Application;
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Db\Adapter\Pdo\Mysql;
+use Phalcon\Flash\Direct;
 
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/src');
 
 $loader = new Loader();
-
 $loader->registerDirs(
     [
         APP_PATH . '/controllers/',
@@ -41,16 +41,23 @@ $container->set(
         return $url;
     }
 );
-
+$container->set(
+    'flash',
+    function () {
+        $flash = new Direct();
+        $flash->setImplicitFlush(false);
+        return $flash;
+    }
+);
 $container->set(
     'db',
     function () {
         return new Mysql(
             [
-                'host'     => 'db',
+                'host' => 'db',
                 'username' => 'root',
                 'password' => 'root',
-                'dbname'   => 'modern_retail',
+                'dbname' => 'modern_retail',
             ]
         );
     }

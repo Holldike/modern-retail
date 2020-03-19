@@ -1,12 +1,12 @@
-<?php $this->flash->output() ?>
+<?php echo $this->flash->output(); ?>
 <form method='post'>
     <p>
         <label>First Name</label>
-        <?= $form->render('firstName') ?>
+        <?= $form->render('firstname') ?>
     </p>
     <p>
         <label>Last Name</label>
-        <?= $form->render('lastName') ?>
+        <?= $form->render('lastname') ?>
     </p>
     <p>
         <label>Email</label>
@@ -18,7 +18,7 @@
     </p>
     <p>
         <label>User Type</label>
-        <?= $form->render('userType') ?>
+        <?= $form->render('user_type') ?>
     </p>
     <p>
         <input type='submit' value='Save' />
