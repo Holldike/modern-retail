@@ -14,7 +14,7 @@ if ($users->count() > 0) {
         </thead>
         <tbody style="cursor: pointer">
         <?php foreach ($users as $user) { ?>
-            <tr onclick="location.href = 'userControl/edit/<?= $user->user_id ?>'">
+            <tr onclick="location.href = 'address/edit/<?= $user->user_id ?>'">
                 <td><?= $user->firstname; ?></td>
                 <td><?= $user->lastname; ?></td>
                 <td><?= $user->email; ?></td>

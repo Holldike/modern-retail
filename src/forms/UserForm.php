@@ -3,6 +3,7 @@
 use Phalcon\Forms\Form;
 use Phalcon\Forms\Element\Text;
 use Phalcon\Forms\Element\Select;
+use Phalcon\Forms\Element\Hidden;
 use Phalcon\Forms\Element\Password;
 use Phalcon\Validation\Validator\Email;
 use Phalcon\Validation\Validator\InclusionIn;
@@ -10,9 +11,9 @@ use Phalcon\Validation\Validator\PresenceOf;
 use Phalcon\Validation\Validator\Uniqueness;
 use Phalcon\Validation\Validator\StringLength;
 
-class InsertUserForm extends Form
+class UserForm extends Form
 {
-    public function initialize()
+    public function initialize($entity = null, array $options = [])
     {
         //Name
         $firstName = new Text(
@@ -58,10 +59,6 @@ class InsertUserForm extends Form
             ]),
             new Email([
                 'message' => 'The e-mail is not valid',
-            ]),
-            new Uniqueness([
-                'message' => 'The e-mail is already exists',
-                'model' => new User()
             ])
         ]);
 
@@ -100,6 +97,17 @@ class InsertUserForm extends Form
         ]);
 
         //Set all
+        if ($options['edit']) {
+            $this->add(new Hidden('user_id'));
+        } else {
+            $email->addValidator(
+                new Uniqueness([
+                    'message' => 'The e-mail is already exists',
+                    'model' => new User()
+                ])
+            );
+        }
+
         $this->add($firstName);
         $this->add($lastName);
         $this->add($email);

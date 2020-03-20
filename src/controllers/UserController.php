@@ -2,11 +2,14 @@
 
 use Phalcon\Mvc\Controller;
 
-class UserControlController extends Controller
+class UserController extends Controller
 {
+    /**
+     * Default action show insert form
+     */
     public function indexAction()
     {
-        $form = new InsertUserForm();
+        $form = new UserForm();
 
         if ($this->request->isPost()) {
             $user = new User(['created_at' => date("Y-m-d H:i:s")]);
@@ -21,6 +24,7 @@ class UserControlController extends Controller
                 if (!$user->save()) {
                     foreach ($user->getMessages() as $message) {
                         $this->flash->error((string)$message);
+                        break;
                     }
                 } else {
                     $this->flash->success("User was created successfully");
@@ -29,11 +33,5 @@ class UserControlController extends Controller
         }
 
         $this->view->setVar('form', $form);
-    }
-
-
-    public function editAction($user_id)
-    {
-
     }
 }

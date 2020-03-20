@@ -11,4 +11,9 @@ class User extends Model
     public $password;
     public $user_type;
     public $created_at;
+
+    public function initialize()
+    {
+        $this->hasMany('user_id', 'Address', 'user_id');
+    }
 }
