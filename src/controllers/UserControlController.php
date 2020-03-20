@@ -15,6 +15,7 @@ class UserControlController extends Controller
             if (!$form->isValid()) {
                 foreach ($form->getMessages() as $message) {
                     $this->flash->error((string)$message);
+                    break;
                 }
             } else {
                 if (!$user->save()) {
@@ -28,5 +29,11 @@ class UserControlController extends Controller
         }
 
         $this->view->setVar('form', $form);
+    }
+
+
+    public function editAction($user_id)
+    {
+
     }
 }

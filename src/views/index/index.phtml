@@ -1,1 +1,30 @@
-Test
+<?php
+
+if ($users->count() > 0) {
+    ?>
+    <table>
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>User Type</th>
+            <th>Created At</th>
+        </tr>
+        </thead>
+        <tbody style="cursor: pointer">
+        <?php foreach ($users as $user) { ?>
+            <tr onclick="location.href = 'userControl/edit/<?= $user->user_id ?>'">
+                <td><?= $user->firstname; ?></td>
+                <td><?= $user->lastname; ?></td>
+                <td><?= $user->email; ?></td>
+                <td><?= $user->user_type; ?></td>
+                <td><?= $user->created_at; ?></td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+    <?php
+}
+
+$this->assets->outputJs(); ?>

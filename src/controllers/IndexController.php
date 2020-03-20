@@ -6,6 +6,12 @@ class IndexController extends Controller
 {
     public function indexAction()
     {
-        $this->view->users = User::find();
+        $this->assets->addJs('js/jquery.js');
+        $this->view->setVar('users', User::find());
+    }
+
+    public function addressListAction()
+    {
+
     }
 }

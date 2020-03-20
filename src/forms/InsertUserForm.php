@@ -33,7 +33,7 @@ class InsertUserForm extends Form
 
         $nameValidators = [
             new PresenceOf([
-                'message' => 'The name is required',
+                'message' => 'The all names is required',
             ]),
             new StringLength([
                 'message' => 'The name is too short',
@@ -84,8 +84,8 @@ class InsertUserForm extends Form
         $userType = new Select(
             'user_type',
             [
-                1 => 'Client',
-                2 => 'Admin',
+                'client' => 'Client',
+                'admin' => 'Admin',
             ]
         );
 
@@ -94,7 +94,7 @@ class InsertUserForm extends Form
                 'message' => 'The type of user is required',
             ]),
             new InclusionIn([
-                'domain' => ['1', '2'],
+                'domain' => ['admin', 'client'],
                 'message' => 'Sorry, but something went wrong, please repeat',
             ])
         ]);
