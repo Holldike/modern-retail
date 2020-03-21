@@ -1,27 +1,30 @@
-<?= $this->flash->output() ?>
-<h1>Add User</h1>
-<form method='post'>
-    <p>
-        <label>First Name</label>
-        <?= $form->render('firstname') ?>
-    </p>
-    <p>
-        <label>Last Name</label>
-        <?= $form->render('lastname') ?>
-    </p>
-    <p>
-        <label>Email</label>
-        <?= $form->render('email') ?>
-    </p>
-    <p>
-        <label>Password</label>
-        <?= $form->render('password') ?>
-    </p>
-    <p>
-        <label>User Type</label>
-        <?= $form->render('user_type') ?>
-    </p>
-    <p>
-        <input type='submit' value='Save' />
-    </p>
-</form>
+<?php
+
+if ($users->count() > 0) {
+    ?>
+    <table>
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>User Type</th>
+            <th>Created At</th>
+        </tr>
+        </thead>
+        <tbody style="cursor: pointer">
+        <?php foreach ($users as $user) { ?>
+            <tr onclick="location.href = 'address/editUser/<?= $user->user_id ?>'">
+                <td><?= $user->firstname; ?></td>
+                <td><?= $user->lastname; ?></td>
+                <td><?= $user->email; ?></td>
+                <td><?= $user->user_type; ?></td>
+                <td><?= $user->created_at; ?></td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+    <?php
+}
+
+$this->assets->outputJs(); ?>

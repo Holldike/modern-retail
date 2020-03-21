@@ -1,0 +1,27 @@
+<?= $this->flash->output() ?>
+<h1>Add User</h1>
+<form method='post'>
+    <p>
+        <label>First Name</label>
+        <?= $form->render('firstname') ?>
+    </p>
+    <p>
+        <label>Last Name</label>
+        <?= $form->render('lastname') ?>
+    </p>
+    <p>
+        <label>Email</label>
+        <?= $form->render('email') ?>
+    </p>
+    <p>
+        <label>Password</label>
+        <?= $form->render('password') ?>
+    </p>
+    <p>
+        <label>User Type</label>
+        <?= $form->render('user_type') ?>
+    </p>
+    <p>
+        <input type='submit' value='Save' />
+    </p>
+</form>

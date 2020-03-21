@@ -17,13 +17,14 @@
 <?php
 if ($addresses->count() > 0) {
     ?>
-    <table>
+    <table style="width:100%">
         <thead>
         <tr>
             <th>City</th>
             <th>Region</th>
             <th>Street</th>
             <th>Postcode</th>
+            <th></th>
         </tr>
         </thead>
         <tbody style="cursor: pointer">
@@ -33,6 +34,7 @@ if ($addresses->count() > 0) {
                 <td><?= $address->region; ?></td>
                 <td><?= $address->street; ?></td>
                 <td><?= $address->postcode; ?></td>
+                <td><?= $this->tag->linkTo('address/delete/' . $address->address_id, 'Delete') ?></td>
             </tr>
         <?php } ?>
         </tbody>
