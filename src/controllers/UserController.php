@@ -5,9 +5,17 @@ use Phalcon\Mvc\Controller;
 class UserController extends Controller
 {
     /**
-     * Default action show insert form
+     * Default action shows list
      */
     public function indexAction()
+    {
+        $this->view->setVar('users', User::find());
+    }
+
+    /**
+     * Shows insert form
+     */
+    public function insertAction()
     {
         $form = new UserForm();
 

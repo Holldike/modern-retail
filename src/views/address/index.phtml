@@ -1,0 +1,39 @@
+<form method="get">
+    <label>
+        <b>Filter By User</b>
+        <select name="filter_user">
+            <option name="user_id" value="" selected></option>
+            <?php foreach ($users as $user) { ?>
+                <option value="<?= $user->user_id ?>">
+                    <?= $user->firstname ?> <?= $user->lastname ?>
+                </option>
+            <?php } ?>
+        </select>
+    </label>
+</form>
+<div id="list-container">
+
+</div>
+<?php $this->assets->outputJs(); ?>
+<script>
+    function loadList() {
+        let filterNameValue = $("[name='filter_user']").val();
+
+        $.ajax({
+            url: "address/list",
+            type: "POST",
+            data: {
+                filter_user: filterNameValue
+            },
+            success: function (result) {
+                $("#list-container").html(result);
+            }
+        });
+    }
+
+    $("[name^='filter_']").on('change', function () {
+        loadList();
+    });
+
+    loadList();
+</script>

@@ -10,4 +10,9 @@ class Address extends Model
     public $postcode;
     public $region;
     public $street;
+
+    public function initialize()
+    {
+        $this->hasOne('user_id', 'User', 'user_id');
+    }
 }

@@ -1,12 +1,62 @@
 <html>
 <head>
     <title>Modern Retail</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-around;
+            text-transform: uppercase;
+            font-weight: bold;
+            background-color: aliceblue;
+        }
+
+        header a {
+            width: 100%;
+            color: darkcyan;
+            padding: 5px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        th {
+            padding: 10px;
+        }
+
+        td {
+            text-align: center;
+        }
+
+        #box {
+            display: flex;
+            justify-content: space-around;
+        }
+
+    </style>
 </head>
 <body>
-<?= $this->tag->linkTo('/', 'Home') ?>
-<?= $this->tag->linkTo('user', 'Add') ?>
+<header>
+    <?= $this->tag->linkTo($this->url->getBaseUri(), 'Home') ?>
+    <?= $this->tag->linkTo('user/insert', 'Add User') ?>
+    <?= $this->tag->linkTo('address', 'All Addresses') ?>
+</header>
 
-<?= $this->getContent() ?>
+<div id="box">
+    <div id="content">
+        <?= $this->getContent() ?>
+    </div>
+</div>
 
 </body>
 </html>

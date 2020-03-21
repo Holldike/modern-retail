@@ -14,6 +14,6 @@ class User extends Model
 
     public function initialize()
     {
-        $this->hasMany('user_id', 'Address', 'user_id');
+        $this->hasMany('user_id', Address::class, 'user_id');
     }
 }
