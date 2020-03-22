@@ -29,6 +29,15 @@ $router->add(
 );
 
 $router->add(
+    '/user/edit/:int',
+    [
+        'controller' => 'user',
+        'action' => 'edit',
+        'params' => 1
+    ]
+);
+
+$router->add(
     '/address',
     [
         'controller' => 'address',
@@ -41,15 +50,6 @@ $router->add(
     [
         'controller' => 'address',
         'action' => 'list',
-    ]
-);
-
-$router->add(
-    '/address/editUser/:int',
-    [
-        'controller' => 'address',
-        'action' => 'editUser',
-        'params' => 1
     ]
 );
 

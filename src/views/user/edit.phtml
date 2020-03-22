@@ -23,7 +23,7 @@
 </form>
 
 <?php
-if ($addresses->count() > 0) {
+if ($user->address->count() > 0) {
     ?>
     <table>
         <thead>
@@ -36,7 +36,7 @@ if ($addresses->count() > 0) {
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($addresses as $address) { ?>
+        <?php foreach ($user->address as $address) { ?>
             <tr>
                 <td><?= $address->city; ?></td>
                 <td><?= $address->region; ?></td>

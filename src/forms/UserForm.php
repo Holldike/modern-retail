@@ -59,6 +59,10 @@ class UserForm extends Form
             ]),
             new Email([
                 'message' => 'The e-mail is not valid',
+            ]),
+            new Uniqueness([
+                'message' => 'The e-mail is already exists',
+                'model' => new User()
             ])
         ]);
 
@@ -95,18 +99,6 @@ class UserForm extends Form
                 'message' => 'Sorry, but something went wrong, please repeat',
             ])
         ]);
-
-        //Set all
-        if ($options['edit']) {
-            $this->add(new Hidden('user_id'));
-        } else {
-            $email->addValidator(
-                new Uniqueness([
-                    'message' => 'The e-mail is already exists',
-                    'model' => new User()
-                ])
-            );
-        }
 
         $this->add($firstName);
         $this->add($lastName);

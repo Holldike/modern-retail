@@ -40,49 +40,11 @@ class AddressController extends Controller
     public function deleteAction($address_id)
     {
         $address = Address::findFirst($address_id);
-        if ($address) {
-            $address->delete();
-            $this->response->redirect('/address/editUser/' . $address->user->user_id);
-        }
-    }
-
-    /**
-     * Edits addresses for specific user
-     * @param $user_id
-     */
-    public function editUserAction($user_id)
-    {
-        $user = User::findFirstByUserId($user_id);
-        if (!$user) {
-            $this->response->redirect('/user');
+        if (!$address) {
+            return;
         }
 
-        $form = new AddressForm();
-        if ($this->request->isPost()) {
-            $address = new Address();
-            $address->user_id = $user_id;
-
-            $form->bind($this->request->getPost(), $address);
-
-            if (!$form->isValid($this->request->getPost())) {
-                foreach ($form->getMessages() as $message) {
-                    $this->flash->error((string)$message);
-                    break;
-                }
-            } else {
-                if (!$address->save()) {
-                    foreach ($address->getMessages() as $message) {
-                        $this->flash->error((string)$message);
-                        break;
-                    }
-                } else {
-                    $this->flash->success('Address was added successfully.');
-                }
-            }
-        }
-
-        $this->view->setVar('form', $form);
-        $this->view->setVar('user', $user);
-        $this->view->setVar('addresses', $user->address);
+        $address->delete();
+        $this->response->redirect('/user/edit/' . $address->user->user_id);
     }
 }

@@ -16,4 +16,9 @@ class User extends Model
     {
         $this->hasMany('user_id', Address::class, 'user_id');
     }
+
+    public function prepareSave()
+    {
+        $this->created_at = date("Y-m-d H:i:s");
+    }
 }
