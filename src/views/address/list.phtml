@@ -1,0 +1,27 @@
+<?php
+if ($addresses->count() > 0) { ?>
+    <table style="cursor: pointer">
+        <thead>
+        <tr>
+            <th>User</th>
+            <th>City</th>
+            <th>Region</th>
+            <th>Street</th>
+            <th>Postcode</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($addresses as $address) { ?>
+            <tr onclick="location.href = 'address/editUser/<?= $address->user->user_id ?>'">
+                <td><?= $address->user->firstname ?> <?= $address->user->lastname ?></td>
+                <td><?= $address->city; ?></td>
+                <td><?= $address->region; ?></td>
+                <td><?= $address->street; ?></td>
+                <td><?= $address->postcode; ?></td>
+            </tr>
+        <?php } ?>
+        </tbody>
+    </table>
+<?php } else { ?>
+    <h1>Addresses was not found</h1>
+<?php }
