@@ -62,6 +62,14 @@ $container->set(
         );
     }
 );
+$container->set(
+    'router',
+    function () {
+        require __DIR__ . '/../config/routes.php';
+
+        return $router;
+    }
+);
 
 $application = new Application($container);
 

@@ -11,4 +11,8 @@ class IndexController extends Controller
     {
         $this->dispatcher->forward(['controller' => 'user']);
     }
+
+    public function route404Action()
+    {
+    }
 }
