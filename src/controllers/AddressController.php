@@ -5,84 +5,64 @@ use Phalcon\Mvc\View;
 
 class AddressController extends Controller
 {
-    /**
-     * Default action show list
-     */
     public function indexAction()
     {
-        $users = User::find();
-
-        $this->view->setVar('users', $users);
+        $this->view->setVar('users', User::find());
         $this->assets->addJs('js/jquery.js');
     }
 
     /**
-     * Shows list of addresses with AJAX
-     */
-    public function listAction()
-    {
-        $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
-
-        $filterData = [];
-        if ($user_id = $this->request->getPost('filter_user')) {
-            $filterData[] = 'user_id = ' . $user_id;
-        }
-
-        $addresses = Address::find($filterData);
-
-        $this->view->setVar('addresses', $addresses);
-    }
-
-    /**
-     * Delete specific address by its id
      * @param $address_id
      */
     public function deleteAction($address_id)
     {
         $address = Address::findFirst($address_id);
-        if ($address) {
-            $address->delete();
-            $this->response->redirect('/address/editUser/' . $address->user->user_id);
+        if (!$address) {
+           return;
         }
+
+        $address->delete();
+        $this->flash->success('Address was deleted successfully.');
+        $this->response->redirect('/user/edit/' . $address->user->user_id);
+    }
+
+    public function saveAction()
+    {
+        $post = $this->request->getPost();
+
+        if (!User::findFirstByUserId($post['user_id'])) {
+            return;
+        }
+
+        $address = new Address();
+        $form = new AddressForm();
+        $form->bind($post, $address);
+
+        if (!$form->isValid($this->request->getPost())) {
+            foreach ($form->getMessages() as $message) {
+                $this->flash->error((string)$message);
+            }
+        } else {
+            $address->save();
+            $this->flash->success('Address was added successfully.');
+        }
+
+        $this->response->redirect('/user/edit/' . $post['user_id']);
     }
 
     /**
-     * Edits addresses for specific user
-     * @param $user_id
+     * Shows content list addresses
      */
-    public function editUserAction($user_id)
+    public function listContentAction()
     {
-        $user = User::findFirstByUserId($user_id);
-        if (!$user) {
-            $this->response->redirect('/user');
+        $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
+
+        $filterData = [];
+
+        if ($user_id = $this->request->getPost('filter_user')) {
+            $filterData[] = 'user_id = ' . $user_id;
         }
 
-        $form = new AddressForm();
-        if ($this->request->isPost()) {
-            $address = new Address();
-            $address->user_id = $user_id;
-
-            $form->bind($this->request->getPost(), $address);
-
-            if (!$form->isValid($this->request->getPost())) {
-                foreach ($form->getMessages() as $message) {
-                    $this->flash->error((string)$message);
-                    break;
-                }
-            } else {
-                if (!$address->save()) {
-                    foreach ($address->getMessages() as $message) {
-                        $this->flash->error((string)$message);
-                        break;
-                    }
-                } else {
-                    $this->flash->success('Address was added successfully.');
-                }
-            }
-        }
-
-        $this->view->setVar('form', $form);
-        $this->view->setVar('user', $user);
-        $this->view->setVar('addresses', $user->address);
+        $this->view->setVar('addresses', Address::find($filterData));
     }
 }

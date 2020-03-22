@@ -15,5 +15,6 @@ class User extends Model
     public function initialize()
     {
         $this->hasMany('user_id', Address::class, 'user_id');
+        $this->created_at = date("Y-m-d H:i:s");
     }
 }

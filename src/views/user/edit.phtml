@@ -1,8 +1,8 @@
-<h1>Edit Addresses</h1>
+<h1>Edit User</h1>
 <h4>User: <?= $user->firstname ?> <?= $user->lastname ?></h4>
 
 <?= $this->flash->output() ?>
-<form method='post'>
+<form method='post' action="/address/save">
     <p>
         <label>City</label>
         <?= $form->render('city') ?>
@@ -19,11 +19,12 @@
         <label>Postcode</label>
         <?= $form->render('postcode') ?>
     </p>
+    <input value="<?= $user->user_id ?>" name="user_id" hidden>
     <input type='submit' value='Add address'/>
 </form>
 
 <?php
-if ($addresses->count() > 0) {
+if ($user->address->count() > 0) {
     ?>
     <table>
         <thead>
@@ -36,7 +37,7 @@ if ($addresses->count() > 0) {
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($addresses as $address) { ?>
+        <?php foreach ($user->address as $address) { ?>
             <tr>
                 <td><?= $address->city; ?></td>
                 <td><?= $address->region; ?></td>

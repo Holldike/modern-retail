@@ -4,6 +4,14 @@ use Phalcon\Mvc\Router;
 
 $router = new Router(false);
 
+
+$router->notFound(
+    [
+        'controller' => 'index',
+        'action' => 'route404',
+    ]
+);
+
 $router->add(
     '/',
     [
@@ -13,10 +21,11 @@ $router->add(
 );
 
 $router->add(
-    '/user',
+    '/user/edit/:int',
     [
         'controller' => 'user',
-        'action' => 'index',
+        'action' => 'edit',
+        'params' => 1
     ]
 );
 
@@ -29,6 +38,17 @@ $router->add(
 );
 
 $router->add(
+    '/user/save',
+    [
+        'controller' => 'user',
+        'action' => 'save',
+    ]
+)->via([
+    'POST',
+]);
+
+
+$router->add(
     '/address',
     [
         'controller' => 'address',
@@ -37,19 +57,10 @@ $router->add(
 );
 
 $router->add(
-    '/address/list',
+    '/address/listContent',
     [
         'controller' => 'address',
-        'action' => 'list',
-    ]
-);
-
-$router->add(
-    '/address/editUser/:int',
-    [
-        'controller' => 'address',
-        'action' => 'editUser',
-        'params' => 1
+        'action' => 'listContent',
     ]
 );
 
@@ -62,11 +73,14 @@ $router->add(
     ]
 );
 
-$router->notFound(
+$router->add(
+    '/address/save',
     [
-        'controller' => 'index',
-        'action' => 'route404',
+        'controller' => 'address',
+        'action' => 'save',
     ]
-);
+)->via([
+    'POST',
+]);
 
 return $router;

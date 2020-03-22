@@ -97,16 +97,6 @@ class UserForm extends Form
         ]);
 
         //Set all
-        if ($options['edit']) {
-            $this->add(new Hidden('user_id'));
-        } else {
-            $email->addValidator(
-                new Uniqueness([
-                    'message' => 'The e-mail is already exists',
-                    'model' => new User()
-                ])
-            );
-        }
 
         $this->add($firstName);
         $this->add($lastName);

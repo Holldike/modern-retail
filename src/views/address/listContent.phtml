@@ -12,7 +12,7 @@ if ($addresses->count() > 0) { ?>
         </thead>
         <tbody>
         <?php foreach ($addresses as $address) { ?>
-            <tr onclick="location.href = 'address/editUser/<?= $address->user->user_id ?>'">
+            <tr onclick="location.href = 'user/edit/<?= $address->user->user_id ?>'">
                 <td><?= $address->user->firstname ?> <?= $address->user->lastname ?></td>
                 <td><?= $address->city; ?></td>
                 <td><?= $address->region; ?></td>

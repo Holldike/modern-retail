@@ -1,7 +1,7 @@
 <h1>Add User</h1>
 <?= $this->flash->output() ?>
 
-<form method='post'>
+<form method='post' action="/user/save">
     <p>
         <label>First Name</label>
         <?= $form->render('firstname') ?>

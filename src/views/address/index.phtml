@@ -20,7 +20,7 @@
         let filterNameValue = $("[name='filter_user']").val();
 
         $.ajax({
-            url: "address/list",
+            url: "/address/listContent",
             type: "POST",
             data: {
                 filter_user: filterNameValue

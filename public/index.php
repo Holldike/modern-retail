@@ -2,11 +2,14 @@
 
 use Phalcon\Url;
 use Phalcon\Loader;
+use Phalcon\Escaper;
 use Phalcon\Mvc\View;
+use Phalcon\Session\Manager;
 use Phalcon\Mvc\Application;
 use Phalcon\Di\FactoryDefault;
 use Phalcon\Db\Adapter\Pdo\Mysql;
-use Phalcon\Flash\Direct;
+use Phalcon\Session\Adapter\Files;
+use Phalcon\Flash\Session as Flash;
 
 define('BASE_PATH', dirname(__DIR__));
 define('APP_PATH', BASE_PATH . '/src');
@@ -41,10 +44,20 @@ $container->set(
         return $url;
     }
 );
+
+$container->set('session', function() {
+    $session = new Files();
+    $session->start();
+    return $session;
+}, true);
+
 $container->set(
-    'flash',
+    'flashSession',
     function () {
-        $flash = new Direct();
+        $session = new Manager();
+        $escaper = new Escaper();
+
+        $flash = new Flash($escaper, $session);
         $flash->setCssClasses(
             [
                 'error'   => 'alert-danger',
@@ -52,6 +65,7 @@ $container->set(
             ]
         );
         $flash->setImplicitFlush(false);
+
         return $flash;
     }
 );
