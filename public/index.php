@@ -45,6 +45,12 @@ $container->set(
     'flash',
     function () {
         $flash = new Direct();
+        $flash->setCssClasses(
+            [
+                'error'   => 'alert-danger',
+                'success' => 'alert-success',
+            ]
+        );
         $flash->setImplicitFlush(false);
         return $flash;
     }

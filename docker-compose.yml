@@ -3,7 +3,7 @@ services:
   web:
     image: nginx:1.17.8-alpine
     volumes:
-     - ./config/modern_retail.conf:/etc/nginx/conf.d/modern_retail.conf
+     - ./modern_retail.conf:/etc/nginx/conf.d/modern_retail.conf
      - ./:/modern_retail
     ports:
      - "8000:80"

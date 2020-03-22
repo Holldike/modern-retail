@@ -16,6 +16,9 @@ class AddressController extends Controller
         $this->assets->addJs('js/jquery.js');
     }
 
+    /**
+     * Shows list of addresses with AJAX
+     */
     public function listAction()
     {
         $this->view->setRenderLevel(View::LEVEL_ACTION_VIEW);
@@ -47,7 +50,7 @@ class AddressController extends Controller
      * Edits addresses for specific user
      * @param $user_id
      */
-    public function editUserAction($user_id)
+    public function editAddressAction($user_id)
     {
         $user = User::findFirstByUserId($user_id);
         if (!$user) {
