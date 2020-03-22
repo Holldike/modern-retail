@@ -50,7 +50,7 @@ class AddressController extends Controller
      * Edits addresses for specific user
      * @param $user_id
      */
-    public function editAddressAction($user_id)
+    public function editUserAction($user_id)
     {
         $user = User::findFirstByUserId($user_id);
         if (!$user) {
